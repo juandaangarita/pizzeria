@@ -4,9 +4,9 @@ Repository used in the platzi Spring Data JPA: Database Course. The repository i
 
 Includes the following layers:
 
-- Persistence: It is used ListCrudRepository and also ListPagingAndSortingRepository
-- Service: It is used ExceptionHandler, Dto's, Transactional Labels 
-- Controller: Used to expose the API
+- Persistence: It is used ListCrudRepository and also ListPagingAndSortingRepository.
+- Service: It is used ExceptionHandler, Dto's, Transactional Labels.
+- Controller: Used to expose the API.
 
 ## Test: TODO
 
