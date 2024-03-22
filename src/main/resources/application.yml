@@ -8,6 +8,10 @@ spring:
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.MySql8Dialect
-    show-sql: true
+
+logging:
+  level:
+    org.springframework.security.web.*: debug
+
 
 
