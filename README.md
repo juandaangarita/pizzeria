@@ -8,5 +8,7 @@ Includes the following layers:
 - Service: It is used ExceptionHandler, Dto's, Transactional Labels.
 - Controller: Used to expose the API.
 
+Include Spring Security
+
 ## Test: TODO
 
