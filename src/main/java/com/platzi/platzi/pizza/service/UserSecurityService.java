@@ -1,6 +1,7 @@
 package com.platzi.platzi.pizza.service;
 
 import com.platzi.platzi.pizza.persistence.entity.UserEntity;
+import com.platzi.platzi.pizza.persistence.entity.UserRoleEntity;
 import com.platzi.platzi.pizza.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -31,10 +32,12 @@ public class UserSecurityService implements UserDetailsService {
         UserEntity userEntity = this.userRepository.findById(username)
                 .orElseThrow(() -> new UsernameNotFoundException("user" + username + "not found"));
 
+        String[] roles = userEntity.getRoles().stream().map(UserRoleEntity::getRole).toArray(String[]::new);
+
         return User.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .roles("ADMIN")
+                .roles(roles)
                 .accountLocked(userEntity.getLocked())
                 .disabled(userEntity.getDisabled())
                 .build();
