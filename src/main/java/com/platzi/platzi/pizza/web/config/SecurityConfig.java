@@ -33,22 +33,26 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
-    @Bean
-    public UserDetailsService memoryUsers(){
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails customer = User.builder()
-                .username("customer")
-                .password(passwordEncoder().encode("customer123"))
-                .roles("CUSTOMER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, customer);
-    }
+//    /**
+//     * Used to create user in memory to authenticate
+//     * @return user to use the application
+//     */
+//    @Bean
+//    public UserDetailsService memoryUsers(){
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password(passwordEncoder().encode("admin"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        UserDetails customer = User.builder()
+//                .username("customer")
+//                .password(passwordEncoder().encode("customer123"))
+//                .roles("CUSTOMER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(admin, customer);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
