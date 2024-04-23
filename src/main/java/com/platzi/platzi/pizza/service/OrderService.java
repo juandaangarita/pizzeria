@@ -3,8 +3,11 @@ package com.platzi.platzi.pizza.service;
 import com.platzi.platzi.pizza.persistence.entity.OrderEntity;
 import com.platzi.platzi.pizza.persistence.projection.OrderSummary;
 import com.platzi.platzi.pizza.persistence.repository.OrderRepository;
+import com.platzi.platzi.pizza.service.dto.RandomOrderDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,11 +45,21 @@ public class OrderService {
         return this.orderRepository.findAllByMethodIn(methods);
     }
 
+    @Secured("ROLE_ADMIN")
     public List<OrderEntity> getCustomerOrders(String idCustomer){
         return this.orderRepository.findCustomersOrders(idCustomer);
     }
 
     public OrderSummary getSummary(int idOrder){
         return this.orderRepository.findSummary(idOrder);
+    }
+
+    /**
+     * This always return true because I didn't create a query to execute on the SQL database
+     */
+    @Transactional
+    public boolean saveRandomOrder(RandomOrderDto randomOrderDto){
+
+        return true;
     }
 }
