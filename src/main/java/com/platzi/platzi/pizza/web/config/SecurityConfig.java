@@ -3,6 +3,8 @@ package com.platzi.platzi.pizza.web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -23,6 +25,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
+                .requestMatchers("api/auth/**").permitAll()
                 .requestMatchers("/api/customers/**").hasAnyRole("ADMIN", "CUSTOMER")
                 .requestMatchers(HttpMethod.GET, "/api/pizza/**").hasAnyRole("ADMIN", "CUSTOMER")
                 .requestMatchers(HttpMethod.POST, "/api/pizza/**").hasRole("ADMIN")
@@ -34,6 +37,16 @@ public class SecurityConfig {
                 .httpBasic();
 
         return httpSecurity.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
 //    /**
@@ -56,9 +69,4 @@ public class SecurityConfig {
 //
 //        return new InMemoryUserDetailsManager(admin, customer);
 //    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 }
